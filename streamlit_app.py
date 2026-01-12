@@ -5,21 +5,45 @@ from summarizer import (
     get_video_metadata
 )
 
+# ===================== Page Config =====================
 st.set_page_config(
     page_title="AI YouTube Summarizer",
     layout="wide"
 )
 
+# ===================== Sidebar =====================
+with st.sidebar:
+    st.header("ℹ️ How it works")
+    st.markdown("""
+1. Paste a YouTube video URL  
+2. Captions are fetched (or Whisper transcribes audio)  
+3. AI generates a concise summary
+""")
+
+    st.header("🔗 Example URL")
+    st.code("https://www.youtube.com/watch?v=9bZkp7q19f0")
+
+    st.header("🛠 Tech Stack")
+    st.markdown("""
+- Python  
+- Streamlit  
+- Whisper  
+- Hugging Face Transformers  
+- yt-dlp + FFmpeg
+""")
+
+# ===================== Main Header =====================
 st.title("🎬 AI YouTube Video Summarizer")
 st.caption(
-    "Summarize YouTube videos using AI — captions first, Whisper audio fallback if needed."
+    "Summarize any YouTube video using AI-powered transcription & NLP. "
+    "Supports captions with Whisper audio fallback."
 )
 
 # ===================== Inputs =====================
-url = st.text_input("Enter YouTube Video URL")
+url = st.text_input("🔗 Enter YouTube Video URL")
 
 summary_type = st.selectbox(
-    "Summary Length",
+    "📏 Summary Length",
     ["short", "medium", "detailed"]
 )
 
@@ -47,7 +71,7 @@ if url:
         st.warning("Unable to load video preview.")
 
 # ===================== Action =====================
-if st.button("Summarize"):
+if st.button("🚀 Summarize Video"):
     if not url:
         st.error("Please enter a YouTube URL.")
     else:
@@ -72,7 +96,6 @@ if st.button("Summarize"):
             # -------- Summary Tab --------
             with tab1:
                 st.subheader("Summary")
-
                 st.write(summary)
 
                 st.markdown(
@@ -110,21 +133,16 @@ if st.button("Summarize"):
             # -------- About Tab --------
             with tab3:
                 st.markdown("""
-                ### 🔍 How this application works
+### 🔍 How this application works
 
-                1. Attempts to fetch YouTube captions using the official transcript API  
-                2. If captions are unavailable, downloads audio and transcribes it using **Whisper**  
-                3. Splits long transcripts into manageable chunks  
-                4. Applies **Transformer-based abstractive summarization**  
-                5. Combines partial summaries into a final coherent result  
+1. Attempts to fetch YouTube captions  
+2. Falls back to Whisper-based audio transcription  
+3. Splits long transcripts into chunks  
+4. Uses transformer-based abstractive summarization  
+5. Merges partial summaries into a coherent result  
 
-                **Tech Stack**
-                - Python
-                - Streamlit
-                - Whisper (Speech-to-Text)
-                - Hugging Face Transformers
-                - yt-dlp + FFmpeg
-                """)
+**Built for real-world usage, not demos.**
+""")
 
         except Exception as e:
             status.update(label="❌ Failed", state="error")
