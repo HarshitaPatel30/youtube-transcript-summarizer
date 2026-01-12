@@ -1,0 +1,16 @@
+[theme]
+base = "dark"
+
+# Accent (buttons, sliders, links)
+primaryColor = "#6366F1"          # Indigo (calm + AI feel)
+
+# Main background
+backgroundColor = "#0B1020"       # Deep blue-black (premium)
+
+# Cards, inputs, sidebar
+secondaryBackgroundColor = "#111827"  # Slate dark
+
+# Text
+textColor = "#E5E7EB"             # Soft white (easy on eyes)
+
+font = "sans serif"
